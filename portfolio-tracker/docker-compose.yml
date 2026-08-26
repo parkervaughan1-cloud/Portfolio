@@ -1,0 +1,14 @@
+services:
+  portfolio:
+    build: .
+    container_name: parker-portfolio
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5000:5000"
+    environment:
+      SECRET_KEY: "${SECRET_KEY}"
+      ADMIN_PASSWORD: "${ADMIN_PASSWORD}"
+      DATABASE_URL: "sqlite:////app/data/portfolio.db"
+    volumes:
+      - ./data:/app/data
+      - ./static/uploads:/app/static/uploads

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}{{ project.title }} | Parker Vaughan{% endblock %}
+{% block content %}
+<section class="section project-detail">
+  <div class="container narrow">
+    <a class="back-link" href="{{ url_for('index') }}#projects">← Back to projects</a>
+    {% if project.featured %}<span class="tag featured">Featured</span>{% endif %}
+    <h1>{{ project.title }}</h1>
+    <p class="lead">{{ project.summary }}</p>
+
+    {% if project.image_filename %}
+      <img class="detail-image" src="{{ url_for('static', filename='uploads/' + project.image_filename) }}" alt="{{ project.title }}">
+    {% endif %}
+
+    {% if tech %}
+      <div class="tags detail-tags">
+        {% for item in tech %}<span class="tag">{{ item }}</span>{% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="prose">
+      {% for paragraph in project.description.split('\n') %}
+        {% if paragraph.strip() %}<p>{{ paragraph }}</p>{% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="project-links">
+      {% if project.github_url %}<a class="button primary" href="{{ project.github_url }}" target="_blank" rel="noopener">GitHub Repository</a>{% endif %}
+      {% if project.live_url %}<a class="button ghost" href="{{ project.live_url }}" target="_blank" rel="noopener">Live Project</a>{% endif %}
+      {% if project.document_filename %}<a class="button ghost" href="{{ url_for('static', filename='uploads/' + project.document_filename) }}" target="_blank">Documentation</a>{% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

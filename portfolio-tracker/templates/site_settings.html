@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Edit Homepage{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container form-shell">
+    <a class="back-link" href="{{ url_for('admin_dashboard') }}">← Admin</a>
+    <div class="eyebrow">ADMIN</div>
+    <h1>Edit homepage</h1>
+
+    <form method="post" class="form-card">
+      <h3>Hero section</h3>
+
+      <label>Eyebrow text</label>
+      <input name="hero_eyebrow" value="{{ settings.hero_eyebrow }}">
+
+      <label>Main headline</label>
+      <textarea name="hero_title" rows="3">{{ settings.hero_title }}</textarea>
+
+      <label>Intro text</label>
+      <textarea name="hero_text" rows="5">{{ settings.hero_text }}</textarea>
+
+      <h3>About section</h3>
+
+      <label>Eyebrow text</label>
+      <input name="about_eyebrow" value="{{ settings.about_eyebrow }}">
+
+      <label>About headline</label>
+      <textarea name="about_title" rows="3">{{ settings.about_title }}</textarea>
+
+      <label>About paragraph one</label>
+      <textarea name="about_paragraph_one" rows="6">{{ settings.about_paragraph_one }}</textarea>
+
+      <label>About paragraph two</label>
+      <textarea name="about_paragraph_two" rows="6">{{ settings.about_paragraph_two }}</textarea>
+
+      <button class="button primary" type="submit">Save homepage</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

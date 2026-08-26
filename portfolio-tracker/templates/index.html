@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">{{ settings.hero_eyebrow }}</div>
+      <h1>{{ settings.hero_title }}</h1>
+      <p class="hero-copy">{{ settings.hero_text }}</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#projects">View projects</a>
+        <a class="button ghost" href="#about">About me</a>
+      </div>
+    </div>
+    <div class="terminal-card">
+      <div class="terminal-top"><span></span><span></span><span></span></div>
+      <pre><code>$ whoami
+Parker Vaughan
+
+$ focus
+Cybersecurity
+Software Development
+Infrastructure
+Research
+
+$ status
+building...</code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="projects">
+  <div class="container">
+    <div class="section-heading">
+      <div>
+        <div class="eyebrow">WORK</div>
+        <h2>Projects</h2>
+      </div>
+      <p>Selected work with technical notes, screenshots, documentation, and links.</p>
+    </div>
+
+    {% if projects %}
+      <div class="project-grid">
+        {% for project in projects %}
+          <article class="project-card">
+            {% if project.image_filename %}
+              <img src="{{ url_for('static', filename='uploads/' + project.image_filename) }}" alt="{{ project.title }}">
+            {% else %}
+              <div class="project-placeholder">PROJECT_{{ "%02d"|format(project.id) }}</div>
+            {% endif %}
+            <div class="project-body">
+              {% if project.featured %}<span class="tag featured">Featured</span>{% endif %}
+              <h3>{{ project.title }}</h3>
+              <p>{{ project.summary }}</p>
+              {% if project.technologies %}
+                <div class="tags">
+                  {% for item in project.technologies.split(',')[:4] %}
+                    <span class="tag">{{ item.strip() }}</span>
+                  {% endfor %}
+                </div>
+              {% endif %}
+              <a class="text-link" href="{{ url_for('project_detail', slug=project.slug) }}">View case study →</a>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <h3>No projects published yet.</h3>
+        <p>Once projects are added through the admin panel, they will appear here automatically.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section about" id="about">
+  <div class="container about-grid">
+    <div>
+      <div class="eyebrow">{{ settings.about_eyebrow }}</div>
+      <h2>{{ settings.about_title }}</h2>
+    </div>
+    <div>
+      <p>{{ settings.about_paragraph_one }}</p>
+      <p>{{ settings.about_paragraph_two }}</p>
+    </div>
+  </div>
+</section>
+{% endblock %}

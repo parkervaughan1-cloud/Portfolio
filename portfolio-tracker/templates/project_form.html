@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit' if project else 'New' }} Project{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container form-shell">
+    <a class="back-link" href="{{ url_for('admin_dashboard') }}">← Admin</a>
+    <h1>{{ 'Edit project' if project else 'Add project' }}</h1>
+
+    <form method="post" enctype="multipart/form-data" class="form-card">
+      <div class="field-grid">
+        <div>
+          <label>Project title</label>
+          <input name="title" required value="{{ project.title if project else '' }}">
+        </div>
+        <div>
+          <label>Technologies <span>comma separated</span></label>
+          <input name="technologies" value="{{ project.technologies if project else '' }}" placeholder="Flask, Docker, Linux, Cloudflare">
+        </div>
+      </div>
+
+      <label>Short summary</label>
+      <input name="summary" maxlength="320" required value="{{ project.summary if project else '' }}" placeholder="One or two sentences for the project card.">
+
+      <label>Full description</label>
+      <textarea name="description" rows="12" required placeholder="What did you build? Why? What challenges did you solve? What did you learn?">{{ project.description if project else '' }}</textarea>
+
+      <div class="field-grid">
+        <div>
+          <label>GitHub URL</label>
+          <input name="github_url" type="url" value="{{ project.github_url if project else '' }}">
+        </div>
+        <div>
+          <label>Live URL</label>
+          <input name="live_url" type="url" value="{{ project.live_url if project else '' }}">
+        </div>
+      </div>
+
+      <div class="field-grid">
+        <div>
+          <label>Project image</label>
+          <input name="image" type="file" accept=".png,.jpg,.jpeg,.webp,.gif">
+        </div>
+        <div>
+          <label>Documentation</label>
+          <input name="document" type="file" accept=".pdf,.txt,.md,.doc,.docx">
+        </div>
+      </div>
+
+      <label class="checkbox">
+        <input type="checkbox" name="featured" {% if project and project.featured %}checked{% endif %}>
+        Featured project
+      </label>
+
+      <button class="button primary" type="submit">{{ 'Save changes' if project else 'Publish project' }}</button>
+    </form>
+  </div>
+</section>
+{% endblock %}
